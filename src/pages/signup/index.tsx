@@ -10,6 +10,7 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { GiFruitTree } from "react-icons/gi";
@@ -45,35 +46,34 @@ export default function Signup() {
   //TODO: Add 'Forgot Password'.
   //TODO: Add Google, Facebook oauth0.
   return (
-    <Container size="container.sm">
+    <Container maxW="container.sm">
       <Box
         as="form"
         display="flex"
         flexDirection="column"
         gap={8}
-        border="2px solid grey"
-        borderRadius="2xl"
-        p={4}
+        p={8}
         onSubmit={submitSignUpForm}
+        alignItems="center"
       >
         <Flex alignItems="center" gap={2} justifyContent="center">
           <GiFruitTree size="2em" />
           <Heading alignItems="center">NAR</Heading>
         </Flex>
         <FormControl display="flex" flexDirection="column">
-          <FormLabel>Email:</FormLabel>
           <Input
             type="email"
+            placeholder="Email"
             onChange={handleEmailInput}
             focusBorderColor="blue.200"
             errorBorderColor="red.200"
           />
         </FormControl>
         <FormControl display="flex" flexDirection="column">
-          <FormLabel>Password:</FormLabel>
           <InputGroup>
             <Input
               type={isPwdShown ? "text" : "password"}
+              placeholder="Password"
               onChange={handlePasswordInput}
               focusBorderColor="blue.200"
               errorBorderColor="red.200"
@@ -84,7 +84,12 @@ export default function Signup() {
             </InputRightElement>
           </InputGroup>
         </FormControl>
-        <Input type="submit" />
+        <Input
+          type="submit"
+          value="Create Account"
+          bgColor="green.600"
+          w="xs"
+        />
       </Box>
     </Container>
   );

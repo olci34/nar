@@ -32,8 +32,8 @@ export function NavLinkItem({ href, target, path, children }: NavLinkItemType) {
       <Text
         as="span"
         textDecoration={isActive ? "underline" : "none"}
-        textUnderlineOffset={4}
-        // textDecorationThickness={2}
+        textUnderlineOffset={6}
+        textDecorationThickness="2px"
         textDecorationColor={isActive ? textDecorColor : undefined}
         display="inline-flex"
         alignItems="center"
@@ -70,8 +70,8 @@ export default function NavBar() {
           <NavLinkItem href="/" path={router.asPath}>
             Home
           </NavLinkItem>
-          <NavLinkItem href="#" path={router.asPath}>
-            Profile
+          <NavLinkItem href="/signup" path={router.asPath}>
+            Sign Up
           </NavLinkItem>
         </Stack>
       </Container>
