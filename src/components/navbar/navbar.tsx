@@ -2,7 +2,6 @@ import {
   Box,
   Container,
   Flex,
-  HStack,
   Heading,
   Stack,
   Text,
@@ -10,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { GiFruitTree } from "react-icons/gi";
 
 type NavLinkItemType = {
   href: string;
@@ -36,7 +36,7 @@ export function NavLinkItem({ href, target, path, children }: NavLinkItemType) {
         // textDecorationThickness={2}
         textDecorationColor={isActive ? textDecorColor : undefined}
         display="inline-flex"
-        gap={1}
+        alignItems="center"
       >
         {children}
       </Text>
@@ -48,27 +48,29 @@ export default function NavBar() {
   const router = useRouter();
 
   return (
-    <Box pos="fixed" as="nav" w="100%" css={{ backdropFilter: "blur(5px)" }}>
-      <Container
-        centerContent
-        maxW="container.xl"
-        display="flex"
-        p={2}
-        flexDirection="row"
-      >
-        <Heading as="h2">LOGO</Heading>
+    <Box
+      pos="fixed"
+      as="nav"
+      w="100%"
+      css={{ backdropFilter: "blur(5px)" }}
+      zIndex={2}
+    >
+      <Container display="flex" p={2} maxW="container.xl">
+        <Flex align="center" mr={10} gap={1}>
+          <GiFruitTree size="2rem" />
+          <Heading as="h2">NAR</Heading>
+        </Flex>
         <Stack
           display={{ base: "none", md: "flex" }}
           direction={{ base: "row" }}
           width={{ base: "full", md: "auto" }}
           alignItems="center"
           flexGrow={1}
-          justify="space-around"
         >
-          <NavLinkItem href="/" target="_blank" path={router.asPath}>
+          <NavLinkItem href="/" path={router.asPath}>
             Home
           </NavLinkItem>
-          <NavLinkItem href="#" target="_blank" path={router.asPath}>
+          <NavLinkItem href="#" path={router.asPath}>
             Profile
           </NavLinkItem>
         </Stack>
