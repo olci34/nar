@@ -1,8 +1,15 @@
 import {
   Box,
-  Container,
+  Button,
+  Center,
   Flex,
   Heading,
+  Icon,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Spacer,
   Stack,
   Text,
   useColorModeValue,
@@ -10,6 +17,18 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { GiFruitTree } from "react-icons/gi";
+import SearchBox from "../search-box/search-box";
+import { FaAngleDown } from "react-icons/fa6";
+
+//API: Categories
+const CATEGORIES = [
+  "Mathematics",
+  "Physics",
+  "Chemistry",
+  "Geometry",
+  "Foreign Language",
+  "Geography",
+];
 
 type NavLinkItemType = {
   href: string;
@@ -48,33 +67,36 @@ export default function NavBar() {
   const router = useRouter();
 
   return (
-    <Box
-      pos="fixed"
-      as="nav"
-      w="100%"
-      css={{ backdropFilter: "blur(5px)" }}
-      zIndex={2}
-    >
-      <Container display="flex" p={2} maxW="container.xl">
-        <Flex align="center" mr={10} gap={1}>
+    <Flex gap={4}>
+      <Box display="flex" gap={2}>
+        <Center>
           <GiFruitTree size="2rem" />
-          <Heading as="h2">NAR</Heading>
-        </Flex>
-        <Stack
-          display={{ base: "none", md: "flex" }}
-          direction={{ base: "row" }}
-          width={{ base: "full", md: "auto" }}
-          alignItems="center"
-          flexGrow={1}
+        </Center>
+        <Heading>NAR</Heading>
+      </Box>
+      <Menu>
+        <MenuButton
+          as={Button}
+          rightIcon={<Icon as={FaAngleDown} boxSize={3} />}
+          bgColor="transparent"
+          _hover={{ backgroundColor: "grey" }}
         >
-          <NavLinkItem href="/" path={router.asPath}>
-            Home
-          </NavLinkItem>
-          <NavLinkItem href="/signup" path={router.asPath}>
-            Sign Up
-          </NavLinkItem>
-        </Stack>
-      </Container>
-    </Box>
+          Categories
+        </MenuButton>
+        <MenuList>
+          {CATEGORIES.map((ctg) => (
+            <MenuItem key={ctg}>{ctg}</MenuItem>
+          ))}
+        </MenuList>
+      </Menu>
+      <SearchBox />
+      <Spacer />
+      <NavLinkItem href="/" path={router.asPath}>
+        Home
+      </NavLinkItem>
+      <NavLinkItem href="/signup" path={router.asPath}>
+        Sign Up
+      </NavLinkItem>
+    </Flex>
   );
 }

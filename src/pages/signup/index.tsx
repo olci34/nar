@@ -4,14 +4,12 @@ import {
   Container,
   Flex,
   FormControl,
-  FormLabel,
   Heading,
   Input,
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
-import Link from "next/link";
-import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { GiFruitTree } from "react-icons/gi";
 
@@ -41,7 +39,7 @@ export default function Signup() {
   };
 
   const togglePwdDisplay = () => setIsPwdShown(!isPwdShown);
-  //TODO: Add email confirmation field.
+  //TODO: Add password confirmation field.
   //TODO: Add email and password validations.
   //TODO: Add 'Forgot Password'.
   //TODO: Add Google, Facebook oauth0.

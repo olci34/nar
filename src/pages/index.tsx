@@ -1,7 +1,13 @@
+import SearchBox from "@/components/search-box/search-box";
+import ContentLayout from "@/layouts/content-layout";
+import { Box, Center } from "@chakra-ui/react";
 import { Inter } from "next/font/google";
-import Layout from "@/layouts/main-layout";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  return <main>Hello World</main>;
+  return (
+    <ContentLayout>
+      <Center>HelloWorld</Center>
+    </ContentLayout>
+  );
 }
