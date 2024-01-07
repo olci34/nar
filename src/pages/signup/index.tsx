@@ -31,8 +31,7 @@ export default function Signup() {
     setPassword(e.currentTarget.value);
   };
 
-  const submitSignUpForm = (e: FormEvent) => {
-    e.preventDefault();
+  const handleSignUp = () => {
     const form: CreateAccountForm = { email: email, password: password };
     //TODO: Send request to create the user.
     console.log(form);
@@ -51,7 +50,6 @@ export default function Signup() {
         flexDirection="column"
         gap={8}
         p={8}
-        onSubmit={submitSignUpForm}
         alignItems="center"
       >
         <Flex alignItems="center" gap={2} justifyContent="center">
@@ -77,17 +75,14 @@ export default function Signup() {
               errorBorderColor="red.200"
               autoComplete="off"
             />
-            <InputRightElement onClick={togglePwdDisplay}>
+            <InputRightElement onClick={togglePwdDisplay} cursor="pointer">
               {isPwdShown ? <FaEye /> : <FaEyeSlash />}
             </InputRightElement>
           </InputGroup>
         </FormControl>
-        <Input
-          type="submit"
-          value="Create Account"
-          bgColor="green.600"
-          w="xs"
-        />
+        <Button onClick={handleSignUp} bgColor="green.600" w="xs">
+          Create Account
+        </Button>
       </Box>
     </Container>
   );

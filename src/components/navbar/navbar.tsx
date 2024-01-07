@@ -91,12 +91,11 @@ export default function NavBar() {
       </Menu>
       <SearchBox />
       <Spacer />
-      <NavLinkItem href="/" path={router.asPath}>
-        Home
-      </NavLinkItem>
-      <NavLinkItem href="/signup" path={router.asPath}>
-        Sign Up
-      </NavLinkItem>
+      <Center display="flex" flexDirection="row" gap={2}>
+        <NavLinkItem href="/login" path={router.asPath}>
+          Log In
+        </NavLinkItem>
+      </Center>
     </Flex>
   );
 }
