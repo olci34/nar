@@ -24,6 +24,7 @@ export default function SearchBox() {
   const [searchVal, setSearchVal] = useState("");
   const debouncedVal = useDebounce(searchVal, 500);
 
+  //TODO: Add Search Results when typing
   return (
     <Flex direction={"row"} gap={4}>
       <Box flex={1}>

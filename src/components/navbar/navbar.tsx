@@ -68,12 +68,14 @@ export default function NavBar() {
 
   return (
     <Flex gap={4}>
-      <Box display="flex" gap={2}>
-        <Center>
-          <GiFruitTree size="2rem" />
-        </Center>
-        <Heading>NAR</Heading>
-      </Box>
+      <Link href="/" prefetch={false}>
+        <Box display="flex" gap={2}>
+          <Center>
+            <GiFruitTree size="2rem" />
+          </Center>
+          <Heading display={{ base: "none", md: "inline" }}>NAR</Heading>
+        </Box>
+      </Link>
       <Menu>
         <MenuButton
           as={Button}
