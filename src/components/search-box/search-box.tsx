@@ -26,7 +26,7 @@ export default function SearchBox() {
 
   //TODO: Add Search Results when typing
   return (
-    <Flex direction={"row"} gap={4}>
+    <Flex direction={"row"} gap={4} w="full">
       <Box flex={1}>
         <SearchBar searchVal={searchVal} setSearchVal={setSearchVal} />
       </Box>

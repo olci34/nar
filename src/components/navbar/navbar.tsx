@@ -3,6 +3,7 @@ import {
   Button,
   Center,
   Flex,
+  HStack,
   Heading,
   Icon,
   Menu,
@@ -10,7 +11,6 @@ import {
   MenuItem,
   MenuList,
   Spacer,
-  Stack,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -18,7 +18,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { GiFruitTree } from "react-icons/gi";
 import SearchBox from "../search-box/search-box";
-import { FaAngleDown } from "react-icons/fa6";
+import { FaAngleDown, FaBars } from "react-icons/fa6";
+import { IoLogIn } from "react-icons/io5";
 
 //API: Categories
 const CATEGORIES = [
@@ -56,6 +57,7 @@ export function NavLinkItem({ href, target, path, children }: NavLinkItemType) {
         textDecorationColor={isActive ? textDecorColor : undefined}
         display="inline-flex"
         alignItems="center"
+        whiteSpace="nowrap"
       >
         {children}
       </Text>
@@ -67,37 +69,67 @@ export default function NavBar() {
   const router = useRouter();
 
   return (
-    <Flex gap={4}>
+    <Flex gap={4} flex={1} align="center">
       <Link href="/" prefetch={false}>
-        <Box display="flex" gap={2}>
-          <Center>
-            <GiFruitTree size="2rem" />
-          </Center>
+        <HStack gap={2} align="center">
+          <GiFruitTree size="2rem" />
           <Heading display={{ base: "none", md: "inline" }}>NAR</Heading>
-        </Box>
+        </HStack>
       </Link>
-      <Menu>
-        <MenuButton
-          as={Button}
-          rightIcon={<Icon as={FaAngleDown} boxSize={3} />}
-          bgColor="transparent"
-          _hover={{ backgroundColor: "grey" }}
+
+      <Box display={{ base: "none", md: "flex" }}>
+        <Menu>
+          <MenuButton
+            as={Button}
+            rightIcon={<Icon as={FaAngleDown} boxSize={3} />}
+            bgColor="transparent"
+            _hover={{ backgroundColor: "grey" }}
+          >
+            Categories
+          </MenuButton>
+          <MenuList>
+            {CATEGORIES.map((ctg) => (
+              <MenuItem key={ctg}>{ctg}</MenuItem>
+            ))}
+          </MenuList>
+        </Menu>
+      </Box>
+      <Box display={{ base: "flex", md: "none" }}>
+        <Menu>
+          <MenuButton
+            as={Button}
+            bgColor="transparent"
+            _hover={{ backgroundColor: "grey" }}
+          >
+            <Icon as={FaBars} />
+          </MenuButton>
+          <MenuList>
+            {CATEGORIES.map((ctg) => (
+              <MenuItem key={ctg}>{ctg}</MenuItem>
+            ))}
+          </MenuList>
+        </Menu>
+      </Box>
+
+      <Box display="flex" flexBasis="100%">
+        <SearchBox />
+      </Box>
+
+      <HStack gap={2}>
+        <Button
+          display={{ base: "none", sm: "inline-flex" }}
+          backgroundColor="transparent"
         >
-          Categories
-        </MenuButton>
-        <MenuList>
-          {CATEGORIES.map((ctg) => (
-            <MenuItem key={ctg}>{ctg}</MenuItem>
-          ))}
-        </MenuList>
-      </Menu>
-      <SearchBox />
-      <Spacer />
-      <Center display="flex" flexDirection="row" gap={2}>
-        <NavLinkItem href="/login" path={router.asPath}>
-          Log In
-        </NavLinkItem>
-      </Center>
+          <NavLinkItem href="/login" path={router.asPath}>
+            Log In
+          </NavLinkItem>
+        </Button>
+        <Link href="/login">
+          <Button display={{ base: "flex", sm: "none" }} bgColor="transparent">
+            <Icon as={IoLogIn} boxSize={6} />
+          </Button>
+        </Link>
+      </HStack>
     </Flex>
   );
 }

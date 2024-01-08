@@ -6,6 +6,7 @@ import {
   Divider,
   Flex,
   FormControl,
+  Icon,
   Input,
   InputGroup,
   InputRightElement,
@@ -15,6 +16,7 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import { GiFruitTree } from "react-icons/gi";
 
 type LogInCredentials = {
   email: string;
@@ -35,14 +37,16 @@ export default function Login() {
   return (
     <Container maxW="container.sm">
       <Box
-        as="form"
         display="flex"
         flexDirection="column"
         p={8}
         gap={8}
         alignItems="center"
       >
-        <VStack w="full" gap={4}>
+        <Box>
+          <Icon as={GiFruitTree} boxSize={24} />
+        </Box>
+        <VStack as="form" w="full" gap={4}>
           <FormControl>
             <Input
               onChange={(e) => setEmail(e.currentTarget.value)}
