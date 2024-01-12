@@ -1,6 +1,12 @@
-import useDebounce from "@/hooks/useDebounce";
-import { Icon, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { NarDarkTheme, NarLightTheme } from "@/lib/utilities/colors";
+import {
+  Icon,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import { Dispatch, SetStateAction } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 interface SearchBarProps {
@@ -15,14 +21,25 @@ export default function SearchBar({ searchVal, setSearchVal }: SearchBarProps) {
 
   return (
     <InputGroup>
-      <InputLeftElement onClick={search} pointerEvents="fill">
-        <Icon as={FaMagnifyingGlass} />
+      <InputLeftElement onClick={search} cursor="pointer">
+        <Icon
+          as={FaMagnifyingGlass}
+          color={useColorModeValue(NarLightTheme.Primary, NarDarkTheme.Primary)}
+        />
       </InputLeftElement>
       <Input
         placeholder="Search"
         value={searchVal}
         onChange={(e) => setSearchVal(e.currentTarget.value)}
         onKeyDown={(e) => (e.key === "Enter" ? search() : null)}
+        focusBorderColor={useColorModeValue(
+          NarLightTheme.BorderFocus,
+          NarDarkTheme.BorderFocus
+        )}
+        errorBorderColor={useColorModeValue(
+          NarLightTheme.Error,
+          NarDarkTheme.Error
+        )}
       />
     </InputGroup>
   );

@@ -1,39 +1,60 @@
+import { NarDarkTheme, NarLightTheme } from "@/lib/utilities/colors";
 import {
   Box,
   Button,
   Container,
+  Divider,
   Flex,
   FormControl,
   Heading,
+  Icon,
   Input,
   InputGroup,
   InputRightElement,
+  Text,
+  VStack,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import { ChangeEvent, FormEvent, useState } from "react";
+import Link from "next/link";
+import { ChangeEvent, useState } from "react";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { GiFruitTree } from "react-icons/gi";
 
-type CreateAccountForm = {
+interface CreateAccountForm {
+  name: string;
   email: string;
   password: string;
-};
+}
 
 export default function Signup() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [isPwdShown, setIsPwdShown] = useState(false);
 
-  const handleEmailInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.currentTarget.value);
+  const doesPasswordsMatch = confirmPassword && password === confirmPassword;
+
+  const handleEmailInput = (input: string) => {
+    //API: Asynchronus validation for unique email
+    setEmail(input);
   };
 
-  const handlePasswordInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.currentTarget.value);
+  const handlePasswordInput = (input: string) => {
+    setPassword(input);
+  };
+
+  const handleConfirmPasswordInput = (input: string) => {
+    setConfirmPassword(input);
   };
 
   const handleSignUp = () => {
-    const form: CreateAccountForm = { email: email, password: password };
-    //TODO: Send request to create the user.
+    const form: CreateAccountForm = {
+      name,
+      email,
+      password,
+    };
+    //API: Send request to create the user.
     console.log(form);
   };
 
@@ -45,44 +66,108 @@ export default function Signup() {
   return (
     <Container maxW="container.sm">
       <Box
-        as="form"
         display="flex"
         flexDirection="column"
         gap={8}
         p={8}
         alignItems="center"
       >
-        <Flex alignItems="center" gap={2} justifyContent="center">
-          <GiFruitTree size="2em" />
-          <Heading alignItems="center">NAR</Heading>
-        </Flex>
-        <FormControl display="flex" flexDirection="column">
-          <Input
-            type="email"
-            placeholder="Email"
-            onChange={handleEmailInput}
-            focusBorderColor="blue.200"
-            errorBorderColor="red.200"
-          />
-        </FormControl>
-        <FormControl display="flex" flexDirection="column">
-          <InputGroup>
+        <Box color={useColorModeValue("light.primary", "dark.primary")}>
+          <Icon as={GiFruitTree} boxSize={24} />
+        </Box>
+        <VStack as="form" w="full" gap={4}>
+          <FormControl>
             <Input
-              type={isPwdShown ? "text" : "password"}
-              placeholder="Password"
-              onChange={handlePasswordInput}
-              focusBorderColor="blue.200"
-              errorBorderColor="red.200"
-              autoComplete="off"
+              type="text"
+              required
+              placeholder="Name"
+              focusBorderColor={useColorModeValue(
+                NarLightTheme.BorderFocus,
+                NarDarkTheme.BorderFocus
+              )}
+              errorBorderColor={useColorModeValue(
+                NarLightTheme.Error,
+                NarDarkTheme.Error
+              )}
+              onChange={(e) => setName(e.currentTarget.value)}
             />
-            <InputRightElement onClick={togglePwdDisplay} cursor="pointer">
-              {isPwdShown ? <FaEye /> : <FaEyeSlash />}
-            </InputRightElement>
-          </InputGroup>
-        </FormControl>
-        <Button onClick={handleSignUp} bgColor="green.600" w="xs">
-          Create Account
-        </Button>
+          </FormControl>
+          <FormControl>
+            <Input
+              type="email"
+              required
+              placeholder="Email"
+              onChange={(e) => handleEmailInput(e.currentTarget.value)}
+              focusBorderColor={useColorModeValue(
+                NarLightTheme.BorderFocus,
+                NarDarkTheme.BorderFocus
+              )}
+              errorBorderColor={useColorModeValue(
+                NarLightTheme.Error,
+                NarDarkTheme.Error
+              )}
+            />
+          </FormControl>
+          <FormControl>
+            <InputGroup>
+              <Input
+                type={isPwdShown ? "text" : "password"}
+                placeholder="Password"
+                required
+                onChange={(e) => handlePasswordInput(e.currentTarget.value)}
+                focusBorderColor={useColorModeValue(
+                  NarLightTheme.BorderFocus,
+                  NarDarkTheme.BorderFocus
+                )}
+                errorBorderColor={useColorModeValue(
+                  NarLightTheme.Error,
+                  NarDarkTheme.Error
+                )}
+                autoComplete="on"
+              />
+              <InputRightElement onClick={togglePwdDisplay} cursor="pointer">
+                {isPwdShown ? <FaEye /> : <FaEyeSlash />}
+              </InputRightElement>
+            </InputGroup>
+          </FormControl>
+          <FormControl>
+            <InputGroup>
+              <Input
+                type={isPwdShown ? "text" : "password"}
+                placeholder="Confirm Password"
+                onChange={(e) =>
+                  handleConfirmPasswordInput(e.currentTarget.value)
+                }
+                focusBorderColor={useColorModeValue(
+                  NarLightTheme.BorderFocus,
+                  NarDarkTheme.BorderFocus
+                )}
+                errorBorderColor={useColorModeValue(
+                  NarLightTheme.Error,
+                  NarDarkTheme.Error
+                )}
+                autoComplete="on"
+              />
+            </InputGroup>
+          </FormControl>
+        </VStack>
+        <VStack gap={4} w="full">
+          <Button bgColor="green.600" minW="2xs" onClick={handleSignUp}>
+            Sign Up
+          </Button>
+          <Flex align="center" w="2xs">
+            <Divider />
+            <Text fontSize="sm" color="gray.400" px={2}>
+              or
+            </Text>
+            <Divider />
+          </Flex>
+          <Link href="/login">
+            <Text color="blue.600" display="inline" as="u" fontSize="sm">
+              Log In
+            </Text>
+          </Link>
+        </VStack>
       </Box>
     </Container>
   );

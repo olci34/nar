@@ -1,3 +1,4 @@
+import { NarDarkTheme, NarLightTheme } from "@/lib/utilities/colors";
 import {
   AbsoluteCenter,
   Box,
@@ -12,6 +13,7 @@ import {
   InputRightElement,
   Text,
   VStack,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useState } from "react";
@@ -43,7 +45,9 @@ export default function Login() {
         gap={8}
         alignItems="center"
       >
-        <Box>
+        <Box
+          color={useColorModeValue(NarLightTheme.Primary, NarDarkTheme.Primary)}
+        >
           <Icon as={GiFruitTree} boxSize={24} />
         </Box>
         <VStack as="form" w="full" gap={4}>
@@ -54,8 +58,14 @@ export default function Login() {
               placeholder="Email"
               autoComplete="on"
               //TODO: Make this Focus and Error Border Color global from themes
-              focusBorderColor="blue.200"
-              errorBorderColor="red.200"
+              focusBorderColor={useColorModeValue(
+                NarLightTheme.BorderFocus,
+                NarDarkTheme.BorderFocus
+              )}
+              errorBorderColor={useColorModeValue(
+                NarLightTheme.Error,
+                NarDarkTheme.Error
+              )}
             />
           </FormControl>
           <VStack gap={2} w="full">
@@ -66,8 +76,14 @@ export default function Login() {
                   type={isPwdShown ? "text" : "password"}
                   placeholder="Password"
                   autoComplete="on"
-                  focusBorderColor="blue.200"
-                  errorBorderColor="red.200"
+                  focusBorderColor={useColorModeValue(
+                    NarLightTheme.BorderFocus,
+                    NarDarkTheme.BorderFocus
+                  )}
+                  errorBorderColor={useColorModeValue(
+                    NarLightTheme.Error,
+                    NarDarkTheme.Error
+                  )}
                 />
                 <InputRightElement
                   onClick={() => setIsPwdShown(!isPwdShown)}
@@ -92,7 +108,7 @@ export default function Login() {
           </Button>
           <Flex align="center" w="2xs">
             <Divider />
-            <Text fontSize="sm" color="gray.400">
+            <Text fontSize="sm" color="gray.400" px={2}>
               or
             </Text>
             <Divider />

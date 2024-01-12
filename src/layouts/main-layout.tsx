@@ -14,7 +14,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
         borderColor="gray.400"
         py={2}
       >
-        <Container maxW="container.lg">
+        <Container maxW="container.xl">
           <NavBar />
         </Container>
       </Box>

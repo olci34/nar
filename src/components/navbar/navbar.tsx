@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Center,
   Flex,
   HStack,
   Heading,
@@ -10,7 +9,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Spacer,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -20,6 +18,8 @@ import { GiFruitTree } from "react-icons/gi";
 import SearchBox from "../search-box/search-box";
 import { FaAngleDown, FaBars } from "react-icons/fa6";
 import { IoLogIn } from "react-icons/io5";
+import ThemeButton from "./theme-button";
+import { NarDarkTheme, NarLightTheme } from "@/lib/utilities/colors";
 
 //API: Categories
 const CATEGORIES = [
@@ -71,7 +71,11 @@ export default function NavBar() {
   return (
     <Flex gap={4} flex={1} align="center">
       <Link href="/" prefetch={false}>
-        <HStack gap={2} align="center">
+        <HStack
+          gap={2}
+          align="center"
+          color={useColorModeValue(NarLightTheme.Primary, NarDarkTheme.Primary)}
+        >
           <GiFruitTree size="2rem" />
           <Heading display={{ base: "none", md: "inline" }}>NAR</Heading>
         </HStack>
@@ -118,12 +122,16 @@ export default function NavBar() {
       <HStack gap={2}>
         <Button
           display={{ base: "none", sm: "inline-flex" }}
-          backgroundColor="transparent"
+          bgColor={useColorModeValue(
+            NarLightTheme.Primary,
+            NarDarkTheme.Primary
+          )}
         >
           <NavLinkItem href="/login" path={router.asPath}>
             Log In
           </NavLinkItem>
         </Button>
+        <ThemeButton />
         <Link href="/login">
           <Button display={{ base: "flex", sm: "none" }} bgColor="transparent">
             <Icon as={IoLogIn} boxSize={6} />
